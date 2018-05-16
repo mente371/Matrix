@@ -3,7 +3,7 @@
 //  
 //
 //  Created by Richard Ash on 10/28/16.
-//  Ajout Matrix.Mult via v_DSP (Accelerate)
+//  Ajout Matrix.Mult via v_DSP (Accelerate) par mente371
 //
 
 import Foundation
@@ -126,20 +126,20 @@ public struct Matrix<T: Number> {
 // MARK: - Matrix Multiplication Function
 
 extension Matrix {
-  public func matrixMultiply(by B: Matrix<T>) -> Matrix<T> {
-    let A = self
-    assert(A.columns == B.rows, "Two matricies can only be matrix mulitiplied if one has dimensions mxn & the other has dimensions nxp where m, n, p are in R")
-
-    var C = Matrix<T>(rows: A.rows, columns: B.columns)
-
-    for i in 0..<A.rows {
-      for j in 0..<B.columns {
-        C[i, j] = A[.row, i].dot(B[.column, j])
-      }
+    public func matrixMultiply(by B: Matrix<T>) -> Matrix<T> {
+        let A = self
+        assert(A.columns == B.rows, "Two matricies can only be matrix mulitiplied if one has dimensions mxn & the other has dimensions nxp where m, n, p are in R")
+        
+        var C = Matrix<T>(rows: A.rows, columns: B.columns)
+        
+        for i in 0..<A.rows {
+            for j in 0..<B.columns {
+                C[i, j] = A[.row, i].dot(B[.column, j])
+            }
+        }
+        
+        return C
     }
-
-    return C
-  }
     
     public func matrixMult(by B: Matrix<Double>) -> Matrix<Double> {
         let A = self
@@ -149,9 +149,9 @@ extension Matrix {
         
         for i in 0..<A.rows {
             for j in 0..<B.columns {
-          //      C[i, j] = A[.row, i].dot(B[.column, j])
+                //      C[i, j] = A[.row, i].dot(B[.column, j])
                 let ai = A[.row, i] as! Array<Double>
-                let bj = B[.column, j] 
+                let bj = B[.column, j]
                 vDSP_dotprD(ai,1,bj,1,&C[i,j],vDSP_Length(A.rows))
             }
         }
@@ -163,8 +163,8 @@ extension Matrix {
         let A = self
         var C = Matrix<Double>(rows: A.rows, columns: A.columns)
         for i in 0..<A.rows {
-                C[.row, i] = A[.row, i] as! Array<Double>
-            }
+            C[.row, i] = A[.row, i] as! Array<Double>
+        }
         return C
     }
     
