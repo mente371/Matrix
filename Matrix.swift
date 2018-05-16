@@ -203,20 +203,6 @@ extension Matrix {
         return mapmat
     }
     
-    func miseAPlat (A: Matrix<Double>)->(Array<Double>) {
-        // mise à plat en colonne-major
-        let nrows = A.rows
-        let ncols = A.columns
-        var mapmat = [Double](repeating: 0.0, count: nrows * ncols)
-        
-        for vector in 0..<nrows {
-            for column in 0..<ncols {
-                mapmat[(vector * ncols) + column] = A[vector, column]
-            }
-        }
-        return mapmat
-    }
-    
     func miseen2D(_ a: Array<Double>, nrows: Int, ncols: Int)->(Matrix<Double>) {
         var mat = Matrix<Double>(rows: nrows, columns: ncols)
         for i in 0...nrows-1 {
